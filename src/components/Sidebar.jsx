@@ -1,4 +1,5 @@
-import { categories } from "../utils/constants"
+/* eslint-disable react/prop-types */
+// import { categories1,categories2 } from "../utils/constants"
 import { FaBars } from "react-icons/fa";
 import { NavLink } from 'react-router-dom';
 import { useState } from "react";
@@ -6,7 +7,7 @@ import { useState } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 
-const Sidebar = ({children}) => {
+const Sidebar = ({children,categories}) => {
 
     const[isOpen ,setIsOpen] = useState(true);
     const toggle = () => setIsOpen (!isOpen);

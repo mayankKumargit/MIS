@@ -3,52 +3,83 @@ import { faCoffee, faPen,faUserTie,faUser } from "@fortawesome/free-solid-svg-ic
 export const categories=[
     {
         name:"Dashboard",
-        path:"/",
+        path:"/admin/admin-profile",
         icon:faCoffee
     },
     {
         name:"Update profile",
-        path:"/update-profile",
+        path:"/admin/update-profile",
         icon:faPen
     },
     {
         name:"Add Courses",
-        path:"/courses",
+        path:"/admin/courses",
         icon:faCoffee
     },
     {
         name:"Manage Courses",
-        path:"/manage-courses",
+        path:"/admin/manage-courses",
         icon:faCoffee
     },
     {
         name:"Session",
-        path:"/session",
+        path:"/admin/session",
         icon:faCoffee
     },
     {
         name:"Add Staff",
-        path:"/add-staff",
+        path:"/admin/add-staff",
         icon:faUserTie
     },
     {
         name:"Manage Staff",
-        path:"/manage-staff",
+        path:"/admin/manage-staff",
         icon:faCoffee
     },
     {
         name:"Add Student",
-        path:"/add-student",
+        path:"/admin/add-student",
         icon:faUser
     },
     { 
         name:"Manage Student",
-        path:"/manage-student",
+        path:"/admin/manage-student",
         icon:faUser
     },
     {
+        name:"logout",
+        path:"/admin/logout",
+        icon:faCoffee
+    },
+    {
         name:"Notify staff",
-        path:"/session",
+        path:"/admin/session",
         icon:faCoffee
     }
+]
+
+
+export const categories2=[
+    {
+        name:"Dashboard",
+        path:"/student/student-profile",
+        icon:faCoffee
+    },
+
+    {
+        name:"See Courses",
+        path:"/student/courses",
+        icon:faCoffee
+    },
+    {
+        name:"Attendance",
+        path:"/student/attendance",
+        icon:faCoffee
+    },
+    {
+        name:"Logout",
+        path:"/student/logout",
+        icon:faUser
+    },
+
 ]
