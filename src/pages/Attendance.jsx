@@ -2,7 +2,7 @@
 const Attendance = () => {
   return (
     <div>
-      Attandance
+      Attendance
     </div>
   )
 }

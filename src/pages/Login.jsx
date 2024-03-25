@@ -1,5 +1,7 @@
 import { useState } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../components/AuthContext';
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -7,19 +9,43 @@ const Login = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
+
+  const {login,setUserEmail } = useAuth(); // Destructure the login function from useAuth
+
+  console.log("Destructuring login : " + login);
+
+  const navigate = useNavigate();
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
+
     try {
-      // Make POST request to your API
+ 
       const response = await axios.get(`https://sarthak503.pythonanywhere.com/api/get-user-type/?email=${email}`);
-      console.log(response.data);
+      // console.log(response.data);
+      const userType=response.data.user_type
+      // console.log(userType)
+      login();
+      setUserEmail(email)
+      // console.log("Performing login " + login());
+      // console.log(isLoggedIn)
+      
+      
       // Handle successful login (e.g., redirect to dashboard)
+      if (userType === 1) {
+        navigate('/admin');
+      } else if (userType === 2) {
+        navigate('/student');
+      } else {
+        setError('Invalid user type');
+      }
     } catch (error) {
       setError('Invalid email or password');
     }
     setLoading(false);
   };
+
 
   return (
     <div className="flex justify-center items-center h-screen">

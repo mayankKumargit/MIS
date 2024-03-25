@@ -3,7 +3,7 @@ import { faCoffee, faPen,faUserTie,faUser } from "@fortawesome/free-solid-svg-ic
 export const categories=[
     {
         name:"Dashboard",
-        path:"/admin/admin-profile",
+        path:"/admin/",
         icon:faCoffee
     },
     {
@@ -62,7 +62,7 @@ export const categories=[
 export const categories2=[
     {
         name:"Dashboard",
-        path:"/student/student-profile",
+        path:"/student/",
         icon:faCoffee
     },
 
