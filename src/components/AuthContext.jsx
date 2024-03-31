@@ -5,15 +5,21 @@ import { createContext, useState, useContext } from 'react';
 const AuthContext = createContext();
 
 // Create the AuthProvider component
-export const AuthProvider = ( props ) => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [userEmail,setUserEmail]=useState("")
-  const [dept,setDept]=useState("")
+export const AuthProvider = ({children}) => {
+  const [isLoggedIn, setIsLoggedIn] = useState(
+    localStorage.getItem('isLoggedIn') === 'true'
+  );
+
+  const [isAdmin,setIsAdmin]=useState("")
+
+  const [userDetails,setUserDetails]=useState({})
 
   // Function to handle login
   const login = () => {
     setIsLoggedIn(true);
+    localStorage.setItem('isLoggedIn', 'true');
     console.log(`Inside Login() chala : ${isLoggedIn}`);
+    console.log(userDetails)
   };
 
   console.log(`Outside Login() chala : ${isLoggedIn}`);
@@ -21,11 +27,12 @@ export const AuthProvider = ( props ) => {
   // Function to handle logout
   const logout = () => {
     setIsLoggedIn(false);
+    localStorage.removeItem('isLoggedIn');
   };
 
   return (
-    <AuthContext.Provider value={{ isLoggedIn, login, logout,userEmail,setUserEmail,dept,setDept }}>
-      {props.children}
+    <AuthContext.Provider value={{ isLoggedIn, login, logout,userDetails,setUserDetails,isAdmin,setIsAdmin }}>
+      {children}
     </AuthContext.Provider>
   );
 };

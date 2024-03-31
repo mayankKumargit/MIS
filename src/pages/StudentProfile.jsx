@@ -3,8 +3,9 @@ import axios from 'axios';
 import { useAuth } from "../components/AuthContext";
 
 const StudentProfile = () => {
-  const { userEmail } = useAuth();
-  const {setDept}=useAuth()
+  const { userDetails } =useAuth()
+  console.log(userDetails)
+  const userEmail=userDetails.email
   const [userData, setUserData] = useState(null);
 
   useEffect(() => {
@@ -13,7 +14,7 @@ const StudentProfile = () => {
         const response = await axios.get(`https://sarthak503.pythonanywhere.com/api/students/${userEmail}/`);
         setUserData(response.data);
         
-        setDept(response.data.dept)
+        
       } catch (error) {
         console.error('Error fetching user data:', error);
       }

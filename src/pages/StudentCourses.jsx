@@ -16,7 +16,8 @@ const Course = ({ course }) => {
 };
 
 const StudentCourses = () => {
-  const {dept}=useAuth()
+  const {userDetails}=useAuth()
+  const dept=userDetails.dept
   // const [courses, setCourses] = useState([]);
   // const [selectedSemester, setSelectedSemester] = useState('');
   const [filteredCourses, setFilteredCourses] = useState([]);
@@ -78,7 +79,7 @@ const StudentCourses = () => {
         {filteredCourses.sort((a, b) => a.semester - b.semester).map((course) => (
           <Course key={course.course_code} course={course} />
         ))}
-    +</div>
+    </div>
     </div>
   );
 };

@@ -1,6 +1,6 @@
 import { faCoffee, faPen,faUserTie,faUser } from "@fortawesome/free-solid-svg-icons";
 
-export const categories=[
+export const admins=[
     {
         name:"Dashboard",
         path:"/admin/",
@@ -59,7 +59,7 @@ export const categories=[
 ]
 
 
-export const categories2=[
+export const students=[
     {
         name:"Dashboard",
         path:"/student/",
@@ -79,6 +79,25 @@ export const categories2=[
     {
         name:"Logout",
         path:"/student/logout",
+        icon:faUser
+    },
+
+]
+
+export const teachers=[
+    {
+        name:"Dashboard",
+        path:"/teacher/",
+        icon:faCoffee
+    },
+    {
+        name:"Attendance",
+        path:"/teacher/attendance",
+        icon:faCoffee
+    },
+    {
+        name:"Logout",
+        path:"/teacher/logout",
         icon:faUser
     },
 
