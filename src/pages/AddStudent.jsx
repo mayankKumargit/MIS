@@ -20,6 +20,7 @@ const Register = () => {
     const [course, setCourse] = useState("BT");
     const [doj,setDoj]=useState("")
     const [sem,setSem]=useState("")
+    const [password,setPassword]=useState("")
 
     const [file, setFile] = useState(null);
 
@@ -52,7 +53,7 @@ const Register = () => {
         e.preventDefault()
         try {
             const res = await axios.post(`https://sarthak503.pythonanywhere.com/api/students/`, {
-                rollno,first_name,last_name,year,email,course,phone,address,doj,gender,dob,batch,dept,sem
+                rollno,first_name,last_name,year,email,course,phone,address,doj,gender,dob,batch,dept,sem,password
             });
             console.log(res)
             console.log(res.status)
@@ -67,21 +68,21 @@ const Register = () => {
                 console.log(res.data.message)
 
             setRollNo("");setFirstName("");setLastName("");setEmail("");setDob("");setAddress("");
-            setPhone("");setBatch("");setYear("");setDoj("");setSem("")
+            setPhone("");setBatch("");setYear("");setDoj("");setSem("");setPassword("")
             } 
             catch (error) {
                 console.log(error);
                 toast.error("Something went wrong");
             }
 
-        console.log(rollno,first_name,last_name,year,email,course,phone,address,doj,gender,dob,batch,dept,sem)
+        console.log(rollno,first_name,last_name,year,email,course,phone,address,doj,gender,dob,batch,dept,sem,password)
         }
 
     return (
         
             <div className="form-container" style={{ minHeight: "90vh" }}>
                 <form onSubmit={handleSubmit}>
-                <h4 className="title">Add students form</h4>
+                <h4 className="title text-2xl font-bold mb-4">Add students form</h4>
                 <div className="mb-3">
                     <input
                     type="text"
@@ -209,33 +210,56 @@ const Register = () => {
                     />
                 </div>
                 <div className="mb-3">
-                    <label>
+                    <input
+                    type="password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    className="form-control"
+                    placeholder="Enter password"
+                    required
+                    
+                    />
+                </div>
+                <div className="mb-4">
+                    <label htmlFor="semester" className="mr-2">
                     Select Department:
-                    <select  className="form-control" value={dept} onChange={(e) => setDept(e.target.value)}>
+                    </label>
+                    <select
+                    value={dept}
+                    onChange={(e)=>setDept(e.target.value)}
+                    className="border rounded-md p-2"
+                    >
                         <option value="CSE">C.S.E</option>
                         <option value="ECE">E.C.E</option>
                     </select>
-                    </label>
                 </div>
-                <div className="mb-3">
-                    <label>
-                    Select Course:
-                    <select  className="form-control" value={course} onChange={(e) => setCourse(e.target.value)}>
-                        <option value="BT">B.Tech</option>
-                        <option value="MT">M.Tech</option>
-                        <option value="PhD">PhD</option>
+                <div className="mb-4">
+                    <label htmlFor="semester" className="mr-2">
+                    Select Program:
+                    </label>
+                    <select
+                    value={course}
+                    onChange={(e)=>setCourse(e.target.value)}
+                    className="border rounded-md p-2"
+                    >
+                        <option value="BT">BTech</option>
+                        <option value="MT">MTech</option>
+                        <option value="PHD">PHD</option>
                     </select>
-                    </label>
                 </div>
-                <div className="mb-3">
-                    <label>
+                <div className="mb-4">
+                    <label htmlFor="semester" className="mr-2">
                     Gender:
-                    <select className="form-control" value={gender} onChange={(e) => setGender(e.target.value)}>
+                    </label>
+                    <select
+                    value={gender}
+                    onChange={(e)=>setGender(e.target.value)}
+                    className="border rounded-md p-2"
+                    >
                         <option value="M">Male</option>
                         <option value="F">Female</option>
                         <option value="O">Others</option>
                     </select>
-                    </label>
                 </div>
                 <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 border border-blue-700 rounded ">
                     Add student

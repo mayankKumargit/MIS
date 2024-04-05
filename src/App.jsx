@@ -11,6 +11,7 @@ import { AuthProvider, useAuth } from './components/AuthContext.jsx';
 import AdminRoutes from './components/AdminRoutes.jsx';
 import StudentRoutes from './components/StudentRoutes.jsx';
 import TeacherRoutes from './components/TeacherRoutes.jsx'
+import PageNotFound from './pages/PageNotFound.jsx';
 
 function App() {
   return (
@@ -23,8 +24,10 @@ function App() {
 }
 
 function InnerApp() {
-  const { isLoggedIn,isAdmin } = useAuth(); // Get authentication state and logout func
-  console.log(isLoggedIn);
+  const { userDetails } = useAuth(); // Get authentication state and logout func
+  const isLoggedIn=userDetails.isLoggedIn
+  const isAdmin=userDetails.userType
+
 
   return (
     <>
@@ -33,6 +36,7 @@ function InnerApp() {
         <Route path="/admin/*" element={isLoggedIn && isAdmin==1 ? <Sidebar categories={admins}><AdminRoutes /></Sidebar> : <Navigate to="/" />} />
         <Route path="/student/*" element={isLoggedIn && isAdmin==2 ? <Sidebar categories={students}><StudentRoutes /></Sidebar> : <Navigate to="/" />} />
         <Route path="/teacher/*" element={isLoggedIn && isAdmin==3 ? <Sidebar categories={teachers}><TeacherRoutes /></Sidebar> : <Navigate to="/" />} />
+        <Route path="/*" element={<PageNotFound/>}></Route>
       </Routes>
       <Toaster position="top-center" reverseOrder={false} />
     </>

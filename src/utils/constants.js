@@ -22,11 +22,6 @@ export const admins=[
         icon:faCoffee
     },
     {
-        name:"Session",
-        path:"/admin/session",
-        icon:faCoffee
-    },
-    {
         name:"Add Staff",
         path:"/admin/add-staff",
         icon:faUserTie
@@ -91,8 +86,18 @@ export const teachers=[
         icon:faCoffee
     },
     {
+        name:"Courses",
+        path:"/teacher/courses",
+        icon:faCoffee
+    },
+    {
         name:"Attendance",
         path:"/teacher/attendance",
+        icon:faCoffee
+    },
+    {
+        name:"See Attendance",
+        path:"/teacher/list-attendance",
         icon:faCoffee
     },
     {

@@ -17,17 +17,20 @@ const Course = ({ course }) => {
 
 const StudentCourses = () => {
   const {userDetails}=useAuth()
-  const dept=userDetails.dept
+  const dept=userDetails.userDetails.dept
   // const [courses, setCourses] = useState([]);
   // const [selectedSemester, setSelectedSemester] = useState('');
   const [filteredCourses, setFilteredCourses] = useState([]);
   // const semesters = ['1', '2', '3', '4', '5', '6', '7', '8'];
+
+  const [loading,setLoading]=useState(true)
 
   useEffect(() => {
     // Fetch all courses by default
     axios.get(`https://sarthak503.pythonanywhere.com/api/filter/?dept=${dept}&intended_for=BT`)
       .then(response => {
         // setCourses(response.data);
+        setLoading(false)
         setFilteredCourses(response.data);
       })
       .catch(error => {
@@ -44,9 +47,12 @@ const StudentCourses = () => {
         setFilteredCourses(response.data);
       })
       } else {
+        setLoading(true)
+        setFilteredCourses([])
         const response = await axios.get(
           `https://sarthak503.pythonanywhere.com/api/filter/?dept=${dept}&semester=${semester}&intended_for=BT`
         );
+        setLoading(false)
         setFilteredCourses(response.data);
       }
     } catch (error) {
@@ -75,11 +81,23 @@ const StudentCourses = () => {
         ))}
       </select>
     </div>
-    <div>
+
+    {
+        (loading && filteredCourses.length==0 ) && <h1 className='h-32  flex flex-row justify-center items-center text-3xl'>Loading courses...</h1>
+    }
+
+    {
+        (!loading && filteredCourses.length==0 ) && <h1 className='h-32  flex flex-row justify-center items-center text-3xl'>No courses</h1>
+    }
+
+    {filteredCourses.length>0 && (
+      <div>
         {filteredCourses.sort((a, b) => a.semester - b.semester).map((course) => (
           <Course key={course.course_code} course={course} />
         ))}
-    </div>
+      </div>
+    )}
+    
     </div>
   );
 };

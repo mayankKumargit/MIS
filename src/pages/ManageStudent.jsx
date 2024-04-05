@@ -60,9 +60,13 @@ function StudentTable() {
     }
   };
 
+  if (students.length===0) {
+    return <div className='h-screen flex flex-row justify-center items-center text-3xl'>Loading...</div>; // Add a loading state while fetching data
+  }
+
   return (
-    <div className="table-container">
-      <h2>Student Table</h2>
+    <div className="table-container ">
+      <h2 className='text-2xl font-bold mb-4'>Student Table</h2>
       <div className="table-responsive">
         <table className="student-table">
           <thead>
@@ -94,11 +98,11 @@ function StudentTable() {
                 <td>{index === activeRow ? <input type="date" value={student.dob} onChange={(e) => handleChange(index, 'dob', e.target.value)} /> : student.dob}</td>
                 <td>{index === activeRow ? <input type="text" value={student.address} onChange={(e) => handleChange(index, 'address', e.target.value)} /> : student.address}</td>
                 <td>{index === activeRow ? <input type="text" value={student.phone} onChange={(e) => handleChange(index, 'phone', e.target.value)} /> : student.phone}</td>
-                <td>{index === activeRow ? <input type="text" value={student.gender} onChange={(e) => handleChange(index, 'gender', e.target.value)} /> : student.gender}</td>
+                <td>{index === activeRow ? <input type="text" value={student.gender} onChange={(e) => handleChange(index, 'gender', e.target.value)} /> : student.gender=="M"?"Male":"Female"}</td>
                 <td>{index === activeRow ? <input type="text" value={student.batch} onChange={(e) => handleChange(index, 'batch', e.target.value)} /> : student.batch}</td>
                 <td>{index === activeRow ? <input type="text" value={student.dept} onChange={(e) => handleChange(index, 'dept', e.target.value)} /> : student.dept}</td>
                 <td>{index === activeRow ? <input type="num" value={student.year} onChange={(e) => handleChange(index, 'year', e.target.value)} /> : student.year}</td>
-                <td>{index === activeRow ? <input type="text" value={student.course} onChange={(e) => handleChange(index, 'course', e.target.value)} /> : student.course}</td>
+                <td>{index === activeRow ? <input type="text" value={student.course} onChange={(e) => handleChange(index, 'course', e.target.value)} /> : student.course=="BT"?"BTech":"MTech"}</td>
                 <td>{index === activeRow ? <input type="date" value={student.doj} onChange={(e) => handleChange(index, 'doj', e.target.value)} /> : student.doj}</td>
                 <td>{index === activeRow ? <input type="num" value={student.sem} onChange={(e) => handleChange(index, 'sem', e.target.value)} /> : student.sem}</td>
                 

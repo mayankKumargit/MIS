@@ -60,9 +60,13 @@ function ManageCourses() {
     }
   };
 
+  if (courses.length===0) {
+    return <div className='h-screen  flex flex-row justify-center items-center text-3xl'>Loading...</div>; // Add a loading state while fetching data
+  }
+
   return (
     <div className="table-container">
-      <h2>Courses Table</h2>
+      <h2 className='title text-2xl font-bold mb-4'>Courses Table</h2>
       <div className="table-responsive">
         <table className="student-table">
           <thead>

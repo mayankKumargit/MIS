@@ -1,37 +1,57 @@
 /* eslint-disable react/prop-types */
-import { createContext, useState, useContext } from 'react';
+import { createContext, useState, useContext, useEffect } from 'react';
 
 // Create the AuthContext
 const AuthContext = createContext();
 
 // Create the AuthProvider component
 export const AuthProvider = ({children}) => {
-  const [isLoggedIn, setIsLoggedIn] = useState(
-    localStorage.getItem('isLoggedIn') === 'true'
-  );
 
-  const [isAdmin,setIsAdmin]=useState("")
 
-  const [userDetails,setUserDetails]=useState({})
+  const [userDetails, setUserDetails] = useState(() => {
+    // Initialize userDetails from local storage if available
+    const storedUserDetails = localStorage.getItem('userLoggedIn');
+    return storedUserDetails ? JSON.parse(storedUserDetails) : {
+      isLoggedIn: false,
+      userType: "",
+      userDetails: ""
+    };
+  });
+
+  // useEffect(() => {
+  //   // Check local storage for authentication token or user session
+  //   const storedUserDetails = localStorage.getItem('userLoggedIn');
+  //   if (storedUserDetails) {
+  //     setUserDetails(JSON.parse(storedUserDetails));
+  //   }
+  // }, []);
 
   // Function to handle login
-  const login = () => {
-    setIsLoggedIn(true);
-    localStorage.setItem('isLoggedIn', 'true');
-    console.log(`Inside Login() chala : ${isLoggedIn}`);
+  const login = (userType,details) => {
+    let user={
+      isLoggedIn:true,
+      userType:userType,
+      userDetails:details
+    }
+    localStorage.setItem('userLoggedIn', JSON.stringify(user));
+
+    setUserDetails(user)
     console.log(userDetails)
   };
 
-  console.log(`Outside Login() chala : ${isLoggedIn}`);
 
   // Function to handle logout
   const logout = () => {
-    setIsLoggedIn(false);
-    localStorage.removeItem('isLoggedIn');
+    localStorage.removeItem('userLoggedIn');
+    setUserDetails({
+      isLoggedIn: false,
+      userType: "",
+      userDetails: ""
+    });
   };
 
   return (
-    <AuthContext.Provider value={{ isLoggedIn, login, logout,userDetails,setUserDetails,isAdmin,setIsAdmin }}>
+    <AuthContext.Provider value={{ login, logout,userDetails,setUserDetails}}>
       {children}
     </AuthContext.Provider>
   );

@@ -60,6 +60,10 @@ function ManageStaff() {
     }
   };
 
+  if (staffs.length===0) {
+    return <div className='h-screen  flex flex-row justify-center items-center text-3xl'>Loading...</div>; // Add a loading state while fetching data
+  }
+
   return (
     <div className="table-container">
       <h2>Faculty Table</h2>

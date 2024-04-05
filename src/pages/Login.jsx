@@ -10,7 +10,9 @@ const Login = () => {
   const [error, setError] = useState('');
 
 
-  const {login,setUserDetails,setIsAdmin } = useAuth(); // Destructure the login function from useAuth
+  const {login,userDetails} = useAuth(); // Destructure the login function from useAuth
+  // const user_type=userDetails.userType
+  // const isLoggedIn=userDetails.isLoggedIn
 
   console.log("Destructuring login : " + login);
 
@@ -27,8 +29,7 @@ const Login = () => {
       const userType=response.data.user_type
       // console.log(userType)
 
-      setUserDetails(response.data.details)
-      login();
+      login(userType,response.data.details);
       
       // console.log("Performing login " + login());
       // console.log(isLoggedIn)
@@ -36,14 +37,11 @@ const Login = () => {
       
       // Handle successful login (e.g., redirect to dashboard)
       if (userType === 1) {
-        setIsAdmin(1)
         navigate('/admin');
       } else if (userType === 2) {
-        setIsAdmin(2)
         navigate('/student');
       }
       else if(userType==3){
-        setIsAdmin(3)
         navigate('/teacher')
       } else {
         setError('Invalid user type');

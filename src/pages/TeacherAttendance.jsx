@@ -1,9 +1,8 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useAuth } from '../components/AuthContext';
-import toast from "react-hot-toast";
 
-const MarkAttendance = () => {
+const TeacherAttendance = () => {
 
   const {userDetails}=useAuth()
 
@@ -15,9 +14,10 @@ const MarkAttendance = () => {
 
   const [courses, setCourses] = useState([]);
   const [selectedCourse, setSelectedCourse] = useState('');
+  const [date, setDate] = useState('');
   const [students, setStudents] = useState([]);
-  const [attendance, setAttendance] = useState([]);
   const [loading,setLoading]=useState(true)
+
 
   // const handleProgramChange = (e) => {
   //   setProgram(e.target.value);
@@ -38,49 +38,38 @@ const MarkAttendance = () => {
   }, [program,semester]);
 
   useEffect(() => {
-    // Fetch students based on selected course
-    if (selectedCourse) {
+    // Fetch students based on selected course and date
+    if (selectedCourse && date) {
       setLoading(true)
       setStudents([])
-      axios.get(`https://sarthak503.pythonanywhere.com/api//filter-students/?dept=${dept}&sem=${semester}&intended_for=${program}`)
+      axios.get(`https://sarthak503.pythonanywhere.com//api/attendance-list/?subject_id=${selectedCourse}&date=${date}`)
         .then(response => {
+          setStudents(response.data.attendance);
           setLoading(false)
-          setStudents(response.data);
-          
-          // Initialize attendance state
-          const initialAttendance = response.data.map(student => ({
-            student: student.rollno,
-            subject:selectedCourse,
-            date:new Date().toISOString().split('T')[0],
-            status: 'P', // Assuming all students are initially present
-          }));
-          setAttendance(initialAttendance);
+          console.log(response.data)
         })
         .catch(error => {
           console.error('Error fetching students:', error);
         });
     }
-  }, [selectedCourse]);
+  }, [selectedCourse,date]);
 
-  const handleSaveAttendance = () => {
-    // Send attendance data to the API endpoint
-    axios.post('https://sarthak503.pythonanywhere.com/api/bulk-attendance-upload/', attendance)
-      .then(response => {
-        console.log('Attendance saved successfully:', response.data);
-        toast.success("Attendance saved successfully")
-        // Optionally, handle success message or navigation
-      })
-      .catch(error => {
-        console.error('Error saving attendance:', error);
-        // Optionally, handle error message or retry logic
-      });
-  };
 
 
   console.log(program,semester)
   return (
     <div className="p-4">
-      <h1 className="text-3xl font-bold mb-6">Student Attendance</h1>
+      <h1 className="text-3xl font-bold mb-4">Attendance list</h1>
+
+      <div className="mb-4">
+          <label className="text-xl font-semibold mb-4 mr-2">Select Date:</label>
+          <input
+            type="date"
+            value={date}
+            onChange={(e) => setDate(e.target.value)}
+            className=" px-4 py-2 border rounded"
+          />
+      </div>
 
       <div className="mb-4">
         <label htmlFor="semester" className="text-xl font-semibold mb-4 mr-2">
@@ -152,7 +141,7 @@ const MarkAttendance = () => {
       </div>
 
       {
-        (loading && selectedCourse) && <h1 className='h-32  flex flex-row justify-center items-center text-3xl'>Loading students...</h1>
+        (loading && selectedCourse && date && students.length==0) && <h1 className='h-32  flex flex-row justify-center items-center text-3xl'>Loading students...</h1>
       }
 
       {
@@ -160,54 +149,36 @@ const MarkAttendance = () => {
       }
 
 
-      {students.length>0 &&  (
-        <div className="flex  flex-col justify-center align-middle">
-        <h2 className="text-2xl font-semibold my-10">Mark Attendance</h2>
-        <table className="w-3/5">
-          <thead>
-            <tr>
-              <th className="py-2">Roll No</th>
-              <th className="py-2">Name</th>
-              <th className="py-2">Attendance</th>
-            </tr>
-          </thead>
-          <tbody>
-            {students.map((student, index) => (
-              <tr  key={student.rollno}>
-
-                <td className="py-4 pl-20">{student.rollno}</td>
-                <td className="py-2 pl-20">{`${student.first_name} ${student.last_name}`}</td>
-                <td className="py-2 pl-20">
-                  <select
-                    className="w-full rounded border-gray-300 focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
-                    value={attendance[index].status}
-                    onChange={e => {
-                      const updatedAttendance = [...attendance];
-                      updatedAttendance[index].status = e.target.value;
-                      setAttendance(updatedAttendance);
-                    }}
-                  >
-                    <option value="P">Present</option>
-                    <option value="A">Absent</option>
-                    <option value="OD">On Duty</option>
-                  </select>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-        <button
-          className="py-2 w-48 px-4 bg-indigo-500 text-white rounded hover:bg-indigo-600 focus:outline-none focus:bg-indigo-600"
-          onClick={handleSaveAttendance}
-        >
-          Save Attendance
-        </button>
-      </div>
-      )}
       
+
+        {students.length>0 &&  (
+          <div>
+          <h2 className="text-xl font-bold mb-2 my-10">Attendance Details:</h2>
+          <table className="w-3/5">
+            <thead>
+              <tr>
+                <th className="py-2 pr-6">Roll no</th>
+                <th className="py-2 pr-6">Course Code</th>
+                <th className="py-2 pr-6">Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              {students.map(item => (
+                <tr key={item.date}>
+                  <td className="py-2 pl-24">{item.student}</td>
+                  <td className="py-2 pl-24">{item.subject}</td>
+                  <td className="py-2 pl-20">{item.status}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        )}
+
+        
 
     </div>
   );
 };
 
-export default MarkAttendance;
+export default TeacherAttendance;
