@@ -25,7 +25,7 @@ const Sidebar = ({children,categories}) => {
             categories.map((item, index)=>(
                 <NavLink to={item.path} key={index} className="link" activeclassName="active">
                     {/* <FontAwesomeIcon icon={item.icon} /> */}
-                    <FontAwesomeIcon icon={item.icon} />
+                    <FontAwesomeIcon icon={item.icon} className='mt-1 w-5 h-5' />
                     <div style={{display: isOpen ? "block" : "none"}} className="link_text">{item.name}</div>
                 </NavLink>
             ))

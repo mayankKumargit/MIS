@@ -67,6 +67,11 @@ const StudentProfile = () => {
           </div>
 
           <div className="mb-4">
+            <span className=" text-2xl font-medium text-gray-700">Program : </span>
+            <span className=" text-2xl font-medium text-blue-900">{userData.course=="BT"?"BTech":userData.course=="MT"?"MTech":"PhD"}</span>
+          </div>
+
+          <div className="mb-4">
             <span className=" text-2xl font-medium text-gray-700">Department : </span>
             <span className=" text-2xl font-medium text-blue-900">{userData.dept}</span>
           </div>
@@ -78,7 +83,7 @@ const StudentProfile = () => {
 
           <div className="mb-4">
             <span className=" text-2xl font-medium text-gray-700">Gender : </span>
-            <span className=" text-2xl font-medium text-blue-900">{userData.gender=='M'?"Male":"Female"}</span>
+            <span className=" text-2xl font-medium text-blue-900">{userData.gender=='M'?"Male":userData.gender=='F'?"Female":"Others"}</span>
           </div>
 
           <div className="mb-4">

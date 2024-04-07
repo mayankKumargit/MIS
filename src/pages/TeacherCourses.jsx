@@ -90,7 +90,7 @@ const TeacherCourses = () => {
         >
             <option value="BT">BTech</option>
             <option value="MT">MTech</option>
-            <option value="PHD">PHD</option>
+            <option value="PhD">PhD</option>
         </select>
       </div>
 
@@ -114,7 +114,7 @@ const TeacherCourses = () => {
         </div>
       )}
 
-      {(program === 'MT' || program === 'PHD') && (
+      {(program === 'MT' || program === 'PhD') && (
           <div className="mb-4">
           <label htmlFor="semester" className="text-xl font-semibold mb-4 mr-2">
                 Select Semester:

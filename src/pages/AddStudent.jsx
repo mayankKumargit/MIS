@@ -42,7 +42,7 @@ const Register = () => {
         console.log("File uploaded:", response.data);
         // Reset the file state after successful upload if needed
         setFile(null);
-        toast.success("file uploaded successfully")
+        toast.success(response.data.message)
         console.log(2)
       } catch (error) {
         console.error("Error uploading file:", error);
@@ -244,7 +244,7 @@ const Register = () => {
                     >
                         <option value="BT">BTech</option>
                         <option value="MT">MTech</option>
-                        <option value="PHD">PHD</option>
+                        <option value="PhD">PhD</option>
                     </select>
                 </div>
                 <div className="mb-4">

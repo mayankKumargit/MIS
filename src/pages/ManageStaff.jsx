@@ -49,7 +49,7 @@ function ManageStaff() {
 
   const handleDelete = async (index) => {
     try {
-      const response = await axios.delete(`https://sarthak503.pythonanywhere.com/api/faculty/${staffs[index].faculty_id}`);
+      const response = await axios.delete(`https://sarthak503.pythonanywhere.com/api/faculty/${staffs[index].faculty_id}/`);
       console.log('faculty deleted:', response.data);
 
       toast.success("faculty deleted successfully")
@@ -66,7 +66,7 @@ function ManageStaff() {
 
   return (
     <div className="table-container">
-      <h2>Faculty Table</h2>
+      <h2 className='text-2xl font-bold mb-4'>Faculty Table</h2>
       <div className="table-responsive">
         <table className="student-table">
           <thead>

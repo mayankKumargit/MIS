@@ -1,10 +1,10 @@
-import { faCoffee, faPen,faUserTie,faUser } from "@fortawesome/free-solid-svg-icons";
+import { faCoffee, faPen, faUserTie, faUser, faSignOut, faGauge, faAddressBook, faUserPlus, faIdBadge, faUserPen, faPenToSquare, faPlus, faBookOpen, faEye } from "@fortawesome/free-solid-svg-icons";
 
 export const admins=[
     {
         name:"Dashboard",
         path:"/admin/",
-        icon:faCoffee
+        icon: faGauge
     },
     {
         name:"Update profile",
@@ -14,37 +14,37 @@ export const admins=[
     {
         name:"Add Courses",
         path:"/admin/courses",
-        icon:faCoffee
+        icon:faPlus
     },
     {
         name:"Manage Courses",
         path:"/admin/manage-courses",
-        icon:faCoffee
+        icon:faPenToSquare
     },
     {
         name:"Add Staff",
         path:"/admin/add-staff",
-        icon:faUserTie
+        icon: faUserPlus
     },
     {
         name:"Manage Staff",
         path:"/admin/manage-staff",
-        icon:faCoffee
+        icon:faUserTie
     },
     {
         name:"Add Student",
         path:"/admin/add-student",
-        icon:faUser
+        icon:faUserPlus
     },
     { 
         name:"Manage Student",
         path:"/admin/manage-student",
-        icon:faUser
+        icon:faUserPen
     },
     {
         name:"logout",
         path:"/admin/logout",
-        icon:faCoffee
+        icon:faSignOut
     },
     {
         name:"Notify staff",
@@ -56,54 +56,54 @@ export const admins=[
 
 export const students=[
     {
-        name:"Dashboard",
+        name:"Profile",
         path:"/student/",
-        icon:faCoffee
+        icon:faUser
     },
 
     {
         name:"See Courses",
         path:"/student/courses",
-        icon:faCoffee
+        icon:faBookOpen
     },
     {
         name:"Attendance",
         path:"/student/attendance",
-        icon:faCoffee
+        icon:faEye
     },
     {
         name:"Logout",
         path:"/student/logout",
-        icon:faUser
+        icon:faSignOut
     },
 
 ]
 
 export const teachers=[
     {
-        name:"Dashboard",
+        name:"Profile",
         path:"/teacher/",
-        icon:faCoffee
+        icon:faIdBadge
     },
     {
         name:"Courses",
         path:"/teacher/courses",
-        icon:faCoffee
+        icon:faBookOpen
     },
     {
         name:"Attendance",
         path:"/teacher/attendance",
-        icon:faCoffee
+        icon:faAddressBook
     },
     {
         name:"See Attendance",
         path:"/teacher/list-attendance",
-        icon:faCoffee
+        icon:faEye
     },
     {
         name:"Logout",
         path:"/teacher/logout",
-        icon:faUser
+        icon:faSignOut
     },
 
 ]

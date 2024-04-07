@@ -10,6 +10,7 @@ const Courses = () => {
     const [subject_name, setSubjectName] = useState("");
     const [semester, setSemester] = useState("");
     const [intended_for, setIntendedFor] = useState("BT");
+    const [dept, setDept] = useState("CSE");
     const [credit,setCredit]=useState("")
     const [teacher_id,setTeacherId]=useState("")
 
@@ -25,7 +26,7 @@ const Courses = () => {
       try {
         const add_courses = new FormData();
         add_courses.append("csv_file", file);
-        const response = await axios.post("https://sarthak503.pythonanywhere.com/api/upload-students-csv/", add_courses, {
+        const response = await axios.post("https://sarthak503.pythonanywhere.com/api/upload-subjects-csv/", add_courses, {
           headers: {
             "Content-Type": "multipart/form-data",
           },
@@ -33,7 +34,7 @@ const Courses = () => {
         console.log("File uploaded:", response.data);
         // Reset the file state after successful upload if needed
         setFile(null);
-        toast.success("file uploaded successfully")
+        toast.success(response.data.message)
         console.log(2)
       } catch (error) {
         console.error("Error uploading file:", error);
@@ -45,7 +46,7 @@ const Courses = () => {
         e.preventDefault()
         try {
             const res = await axios.post(`https://sarthak503.pythonanywhere.com/api/subjects/`, {
-              course_code,subject_name,semester,intended_for,credit,teacher_id
+              course_code,subject_name,semester,intended_for,credit,teacher_id,dept
             });
             console.log(res)
             console.log(res.status)
@@ -59,14 +60,14 @@ const Courses = () => {
             if(res)
                 console.log(res.data.message)
 
-            setCourseCode("");setSubjectName("");setSemester("");setCredit("");setTeacherId("")
+            setCourseCode("");setSubjectName("");setSemester("");setCredit("");setTeacherId("");setDept("")
             } 
             catch (error) {
                 console.log(error);
                 toast.error("Something went wrong");
             }
 
-        console.log(course_code,subject_name,semester,intended_for,credit,teacher_id)
+        console.log(course_code,subject_name,semester,intended_for,credit,teacher_id,dept)
         }
 
     return (
@@ -127,6 +128,20 @@ const Courses = () => {
                     required
                     />
                 </div>
+
+                <div className="mb-4">
+                    <label htmlFor="program" className="mr-2">
+                    Select Department:
+                    </label>
+                    <select
+                    value={dept}
+                    onChange={(e)=>setDept(e.target.value)}
+                    className="border rounded-md p-2"
+                    >
+                        <option value="CSE">C.S.E</option>
+                        <option value="ECE">E.C.E</option>
+                    </select>
+                </div>
                 
 
                 <div className="mb-4">
@@ -140,7 +155,7 @@ const Courses = () => {
                     >
                         <option value="BT">BTech</option>
                         <option value="MT">MTech</option>
-                        <option value="PHD">PHD</option>
+                        <option value="PhD">PhD</option>
                     </select>
                 </div>
           

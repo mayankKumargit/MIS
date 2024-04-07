@@ -49,7 +49,7 @@ function StudentTable() {
 
   const handleDelete = async (index) => {
     try {
-      const response = await axios.delete(`https://sarthak503.pythonanywhere.com/api/students/${students[index].rollno}`);
+      const response = await axios.delete(`https://sarthak503.pythonanywhere.com/api/students/${students[index].rollno}/`);
       console.log('Student deleted:', response.data);
 
       toast.success("student deleted successfully")
@@ -82,7 +82,7 @@ function StudentTable() {
               <th>Batch</th>
               <th>Department</th>
               <th>Year</th>
-              <th>Course</th>
+              <th>Program</th>
               <th>Date of joining</th>
               <th>Sem</th>
               <th>Actions</th>
@@ -102,7 +102,7 @@ function StudentTable() {
                 <td>{index === activeRow ? <input type="text" value={student.batch} onChange={(e) => handleChange(index, 'batch', e.target.value)} /> : student.batch}</td>
                 <td>{index === activeRow ? <input type="text" value={student.dept} onChange={(e) => handleChange(index, 'dept', e.target.value)} /> : student.dept}</td>
                 <td>{index === activeRow ? <input type="num" value={student.year} onChange={(e) => handleChange(index, 'year', e.target.value)} /> : student.year}</td>
-                <td>{index === activeRow ? <input type="text" value={student.course} onChange={(e) => handleChange(index, 'course', e.target.value)} /> : student.course=="BT"?"BTech":"MTech"}</td>
+                <td>{index === activeRow ? <input type="text" value={student.course} onChange={(e) => handleChange(index, 'course', e.target.value)} /> : student.course=="BT"?"BTech":student.course=="MT"?"MTech":"PhD"}</td>
                 <td>{index === activeRow ? <input type="date" value={student.doj} onChange={(e) => handleChange(index, 'doj', e.target.value)} /> : student.doj}</td>
                 <td>{index === activeRow ? <input type="num" value={student.sem} onChange={(e) => handleChange(index, 'sem', e.target.value)} /> : student.sem}</td>
                 

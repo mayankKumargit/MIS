@@ -42,7 +42,7 @@ const TeacherAttendance = () => {
     if (selectedCourse && date) {
       setLoading(true)
       setStudents([])
-      axios.get(`https://sarthak503.pythonanywhere.com//api/attendance-list/?subject_id=${selectedCourse}&date=${date}`)
+      axios.get(`https://sarthak503.pythonanywhere.com/api/attendance-list/?subject_id=${selectedCourse}&date=${date}`)
         .then(response => {
           setStudents(response.data.attendance);
           setLoading(false)
@@ -82,7 +82,7 @@ const TeacherAttendance = () => {
         >
             <option value="BT">BTech</option>
             <option value="MT">MTech</option>
-            <option value="PHD">PHD</option>
+            <option value="PhD">PhD</option>
         </select>
       </div>
 
@@ -105,7 +105,7 @@ const TeacherAttendance = () => {
         </div>
       )}
 
-      {(program === 'MT' || program === 'PHD') && (
+      {(program === 'MT' || program === 'PhD') && (
           <div className="mb-4">
           <label htmlFor="semester" className="text-xl font-semibold mb-4 mr-2">
                 Select Semester:

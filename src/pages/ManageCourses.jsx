@@ -49,7 +49,7 @@ function ManageCourses() {
 
   const handleDelete = async (index) => {
     try {
-      const response = await axios.delete(`https://sarthak503.pythonanywhere.com/api/subjects/${courses[index].course_code}`);
+      const response = await axios.delete(`https://sarthak503.pythonanywhere.com/api/subjects/${courses[index].course_code}/`);
       console.log('Course deleted:', response.data);
 
       toast.success("course deleted successfully")
@@ -74,8 +74,9 @@ function ManageCourses() {
               <th>Course Code</th>
               <th>Subject Name</th>
               <th>Semester</th>
-              <th>Course</th>
+              <th>Program</th>
               <th>Credit</th>
+              <th>Department</th>
               <th>Teacher id</th>
               <th>Actions</th>
             </tr>
@@ -86,8 +87,9 @@ function ManageCourses() {
                 <td>{index === activeRow ? <input type="text" value={course.course_code} onChange={(e) => handleChange(index, 'course_code', e.target.value)} /> : course.course_code}</td>
                 <td>{index === activeRow ? <input type="text" value={course.subject_name} onChange={(e) => handleChange(index, 'subject_name', e.target.value)} /> : course.subject_name}</td>
                 <td>{index === activeRow ? <input type="number" value={course.semester} onChange={(e) => handleChange(index, 'semester', e.target.value)} /> : course.semester}</td>
-                <td>{index === activeRow ? <input type="email" value={course.intended_for} onChange={(e) => handleChange(index, 'intended_for', e.target.value)} /> : course.intended_for}</td>
+                <td>{index === activeRow ? <input type="email" value={course.intended_for} onChange={(e) => handleChange(index, 'intended_for', e.target.value)} /> : course.intended_for=="BT"?"BTech":course.intended_for=="MT"?"MTech":"PhD"}</td>
                 <td>{index === activeRow ? <input type="number" value={course.credit} onChange={(e) => handleChange(index, 'credit', e.target.value)} /> : course.credit}</td>
+                <td>{index === activeRow ? <input type="text" value={course.dept} onChange={(e) => handleChange(index, 'dept', e.target.value)} /> : course.dept}</td>
                 <td>{index === activeRow ? <input type="text" value={course.teacher_id} onChange={(e) => handleChange(index, 'teacher_id', e.target.value)} /> : course.teacher_id}</td> 
                 <td>
                   <div className='flex'>

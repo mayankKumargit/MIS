@@ -20,12 +20,20 @@ const Attendance = () => {
   const [endDate, setEndDate] = useState('');
   const [attendanceData, setAttendanceData] = useState([]);
   const [percentagePresent, setPercentagePresent] = useState(null);
+  const [loading1,setLoading1]=useState(false)
+  const [loading2,setLoading2]=useState(false)
+  const [oneAttendance,setOneAttendance]=useState({})
+  const [temp,setTemp]=useState(false)
 
 
   const handleSingleDateSubmit = async () => {
     try {
+      setLoading1(true)
+      setOneAttendance({})
+      setTemp(true)
       const response = await axios.get(`https://sarthak503.pythonanywhere.com/api/attendance/?student_id=${rollno}&subject_id=${selectedCourse}&date=${date}`);
-      setAttendanceData([response.data]);
+      setLoading1(false)
+      setOneAttendance(response.data)
       console.log(response.data)
       console.log(date)
       console.log(rollno)
@@ -37,8 +45,12 @@ const Attendance = () => {
 
   const handleRangeDateSubmit = async () => {
     try {
+      setLoading2(true)
+      setAttendanceData([])
       const response = await axios.get(`https://sarthak503.pythonanywhere.com/api/attendance/?student_id=${rollno}&subject_id=${selectedCourse}&start_date=${startDate}&end_date=${endDate}`);
+      console.log(response.data)
       setAttendanceData(response.data);
+      setLoading2(false)
       calculatePercentagePresent(response.data);
     } catch (error) {
       console.error('Error fetching attendance data:', error);
@@ -108,6 +120,16 @@ const Attendance = () => {
         </div>
       </div>
 
+      {loading1 && <h1 className='flex flex-row justify-center items-center text-3xl my-10'>Loading Attendance...</h1>}
+
+      {(!loading1 && oneAttendance.student===null) && <h1 className='flex flex-row justify-center items-center text-3xl my-10'>No attendance for this date</h1>}
+
+      {
+        (temp && oneAttendance.student!==null) && (
+          <h1 className=' text-3xl my-10'> {oneAttendance.status=='P'?"Present":oneAttendance.status=='A'?"Absent":oneAttendance.status=='OD'?"On duty":""}</h1>
+        )
+      }
+
       <h1 className="text-xl font-semibold mb-4 mr-2 ">Get Attendance for the range of dates</h1>
 
       <div className='flex flex-row justify-evenly'>
@@ -133,28 +155,37 @@ const Attendance = () => {
       </div>
       <button onClick={handleRangeDateSubmit} className="mt-1 bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded">Get Attendance Range</button>
 
-      <div>
-        <h2 className="text-xl font-bold mb-2 my-10">Attendance Details:</h2>
-        <table className="w-3/5">
-          <thead>
-            <tr>
-              <th className="py-2 pr-6">Date</th>
-              <th className="py-2 pr-6">Status</th>
-            </tr>
-          </thead>
-          <tbody>
-            {attendanceData.map(item => (
-              <tr key={item.date}>
-                <td className="py-2 pl-40">{item.date}</td>
-                <td className="py-2 pl-40">{item.status}</td>
+      {loading2 && <h1 className='flex flex-row justify-center items-center text-3xl my-10'>Loading Attendance...</h1>}
+
+      {(!loading2 && attendanceData.length==0) && <h1 className='flex flex-row justify-center items-center text-3xl my-10'>No attendance for this date range</h1>}
+
+      {
+        attendanceData.length>0 && (
+        <div>
+          <h2 className="text-xl font-bold mb-2 my-10">Attendance Details:</h2>
+          <table className="w-3/5">
+            <thead>
+              <tr>
+                <th className="py-2 pr-6">Date</th>
+                <th className="py-2 pr-6">Status</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
-        {percentagePresent && (
-          <p className="mt-4">Percentage Present: {percentagePresent}%</p>
-        )}
+            </thead>
+            <tbody>
+              {attendanceData.map(item => (
+                <tr key={item.date}>
+                  <td className="py-2 pl-40">{item.date}</td>
+                  <td className="py-2 pl-40">{item.status}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+          {percentagePresent && (
+            <p className="mt-4 font-semibold text-2xl">Percentage Present: {percentagePresent}%</p>
+          )}
       </div>
+        )
+      }
+      
     </div>
     
   );

@@ -24,7 +24,8 @@ const Login = () => {
 
     try {
  
-      const response = await axios.get(`https://sarthak503.pythonanywhere.com/api/get-user-type/?email=${email}`);
+      setError("")
+      const response = await axios.get(`https://sarthak503.pythonanywhere.com/api/get-user-type/?email=${email}&password=${password}`);
       // console.log(response.data);
       const userType=response.data.user_type
       // console.log(userType)

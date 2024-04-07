@@ -18,6 +18,7 @@ const Course = ({ course }) => {
 const StudentCourses = () => {
   const {userDetails}=useAuth()
   const dept=userDetails.userDetails.dept
+  const course=userDetails.userDetails.course
   // const [courses, setCourses] = useState([]);
   // const [selectedSemester, setSelectedSemester] = useState('');
   const [filteredCourses, setFilteredCourses] = useState([]);
@@ -27,7 +28,7 @@ const StudentCourses = () => {
 
   useEffect(() => {
     // Fetch all courses by default
-    axios.get(`https://sarthak503.pythonanywhere.com/api/filter/?dept=${dept}&intended_for=BT`)
+    axios.get(`https://sarthak503.pythonanywhere.com/api/filter/?dept=${dept}&intended_for=${course}`)
       .then(response => {
         // setCourses(response.data);
         setLoading(false)
@@ -41,7 +42,7 @@ const StudentCourses = () => {
   const handleFilter = async (semester) => {
     try {
       if (semester === "") {
-        axios.get(`https://sarthak503.pythonanywhere.com/api/filter/?dept=${dept}&intended_for=BT`)
+        axios.get(`https://sarthak503.pythonanywhere.com/api/filter/?dept=${dept}&intended_for=${course}`)
       .then(response => {
         // setCourses(response.data);
         setFilteredCourses(response.data);
@@ -50,7 +51,7 @@ const StudentCourses = () => {
         setLoading(true)
         setFilteredCourses([])
         const response = await axios.get(
-          `https://sarthak503.pythonanywhere.com/api/filter/?dept=${dept}&semester=${semester}&intended_for=BT`
+          `https://sarthak503.pythonanywhere.com/api/filter/?dept=${dept}&semester=${semester}&intended_for=${course}`
         );
         setLoading(false)
         setFilteredCourses(response.data);

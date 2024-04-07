@@ -28,7 +28,7 @@ const AddStaff = () => {
       try {
         const add_staff = new FormData();
         add_staff.append("csv_file", file);
-        const response = await axios.post("https://sarthak503.pythonanywhere.com/api/upload-students-csv/", add_staff, {
+        const response = await axios.post("https://sarthak503.pythonanywhere.com/api/upload-faculty-csv/", add_staff, {
           headers: {
             "Content-Type": "multipart/form-data",
           },
@@ -36,7 +36,7 @@ const AddStaff = () => {
         console.log("File uploaded:", response.data);
         // Reset the file state after successful upload if needed
         setFile(null);
-        toast.success("file uploaded successfully")
+        toast.success(response.data.message)
         console.log(2)
       } catch (error) {
         console.error("Error uploading file:", error);
