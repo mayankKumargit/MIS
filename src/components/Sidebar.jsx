@@ -5,6 +5,7 @@ import { NavLink } from 'react-router-dom';
 import { useState } from "react";
 // import 'font-awesome/css/font-awesome.min.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import iiittLogo from '../assets/iiittLogo.jpeg'
 
 
 const Sidebar = ({children,categories}) => {
@@ -16,7 +17,7 @@ const Sidebar = ({children,categories}) => {
     <div className="container">
     <div style={{width: isOpen ? "250px" : "50px"}} className="sidebar">
         <div className="top_section">
-            <h1 style={{display: isOpen ? "block" : "none"}} className="logo">Logo</h1>
+            <div style={{display: isOpen ? "block" : "none"}} className="logo"><img src={iiittLogo} className="rounded-full h-14 w-14"></img></div>
             <div style={{marginLeft: isOpen ? "50px" : "0px"}} className="bars">
                 <FaBars onClick={toggle}/>
             </div>

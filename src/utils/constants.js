@@ -1,15 +1,10 @@
-import { faCoffee, faPen, faUserTie, faUser, faSignOut, faGauge, faAddressBook, faUserPlus, faIdBadge, faUserPen, faPenToSquare, faPlus, faBookOpen, faEye } from "@fortawesome/free-solid-svg-icons";
+import {  faUserTie, faUser, faSignOut, faGauge, faAddressBook, faUserPlus, faIdBadge, faUserPen, faPenToSquare, faPlus, faBookOpen, faEye, faMarker } from "@fortawesome/free-solid-svg-icons";
 
 export const admins=[
     {
         name:"Dashboard",
         path:"/admin/",
         icon: faGauge
-    },
-    {
-        name:"Update profile",
-        path:"/admin/update-profile",
-        icon:faPen
     },
     {
         name:"Add Courses",
@@ -45,11 +40,6 @@ export const admins=[
         name:"logout",
         path:"/admin/logout",
         icon:faSignOut
-    },
-    {
-        name:"Notify staff",
-        path:"/admin/session",
-        icon:faCoffee
     }
 ]
 
@@ -69,6 +59,11 @@ export const students=[
     {
         name:"Attendance",
         path:"/student/attendance",
+        icon:faEye
+    },
+    {
+        name:"See marks",
+        path:"/student/see-marks",
         icon:faEye
     },
     {
@@ -98,6 +93,16 @@ export const teachers=[
     {
         name:"See Attendance",
         path:"/teacher/list-attendance",
+        icon:faEye
+    },
+    {
+        name:"Save marks",
+        path:"/teacher/save-marks",
+        icon:faMarker
+    },
+    {
+        name:"See marks",
+        path:"/teacher/see-marks",
         icon:faEye
     },
     {
